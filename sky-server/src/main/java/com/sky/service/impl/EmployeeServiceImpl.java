@@ -87,13 +87,17 @@ public class EmployeeServiceImpl implements EmployeeService {
         // 设置密码，默认密码123456
         employee.setPassword(DigestUtils.md5DigestAsHex(PasswordConstant.DEFAULT_PASSWORD.getBytes()));
 
+
+        /**
+         * 已经通过公共字段自动填充了
+         */
         // 设置当前记录的创建时间和修改时间
-        employee.setCreateTime(LocalDateTime.now());
-        employee.setUpdateTime(LocalDateTime.now());
+        //employee.setCreateTime(LocalDateTime.now());
+        //employee.setUpdateTime(LocalDateTime.now());
 
         // 设置当前记录创建人id和修改人id
-        employee.setCreateUser(BaseContext.getCurrentId());
-        employee.setUpdateUser(BaseContext.getCurrentId());
+        //employee.setCreateUser(BaseContext.getCurrentId());
+        //employee.setUpdateUser(BaseContext.getCurrentId());
 
         // 调用持久层,存入实体类数据
         employeeMapper.insert(employee);
@@ -165,9 +169,12 @@ public class EmployeeServiceImpl implements EmployeeService {
         // mapper层的update方法接收的是employee，我们接收前端的信息是DTO，使用对象的属性拷贝
         Employee employee = new Employee();
         BeanUtils.copyProperties(employeeDTO,employee);
-        employee.setUpdateTime(LocalDateTime.now());
-        // 拦截器已经将id，通过ThreadLocal设置好了，通过ThreadLocal直接获取
-        employee.setUpdateUser(BaseContext.getCurrentId());
+
+        /**
+         * 已经通过公共字段自动填充了
+         */
+        //employee.setUpdateTime(LocalDateTime.now());
+        //employee.setUpdateUser(BaseContext.getCurrentId());// 拦截器已经将id，通过ThreadLocal设置好了，通过ThreadLocal直接获取
 
         employeeMapper.update(employee);
     }
